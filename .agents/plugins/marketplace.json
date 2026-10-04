@@ -1,6 +1,6 @@
 {
-  "name": "confluence-skills",
-  "interface": { "displayName": "Confluence Skills" },
+  "name": "skills-confluence",
+  "interface": { "displayName": "Skills Confluence" },
   "plugins": [
     {
       "name": "confluence-docs",

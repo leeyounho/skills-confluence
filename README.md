@@ -1,4 +1,4 @@
-# Confluence Skills
+# Skills Confluence
 
 Claude와 Codex에서 Confluence 문서를 작성하는 스킬과 자체 플러그인 marketplace입니다.
 
@@ -9,8 +9,8 @@ Claude와 Codex에서 Confluence 문서를 작성하는 스킬과 자체 플러�
 Claude Code 세션에서 실행합니다.
 
 ```text
-/plugin marketplace add leeyounho/confluence-skills
-/plugin install confluence-docs@confluence-skills
+/plugin marketplace add leeyounho/skills-confluence
+/plugin install confluence-docs@skills-confluence
 ```
 
 설치 후 스킬을 호출합니다.
@@ -24,10 +24,10 @@ Claude Code 세션에서 실행합니다.
 지원하는 Codex CLI에서 marketplace를 추가합니다.
 
 ```text
-codex plugin marketplace add leeyounho/confluence-skills
+codex plugin marketplace add leeyounho/skills-confluence
 ```
 
-데스크톱 앱의 Plugins 목록에서 **Confluence Skills**를 선택하고 **confluence-docs**를 설치합니다. 새 채팅에서 스킬을 선택하거나 다음과 같이 요청합니다.
+데스크톱 앱의 Plugins 목록에서 **Skills Confluence**를 선택하고 **confluence-docs**를 설치합니다. 새 채팅에서 스킬을 선택하거나 다음과 같이 요청합니다.
 
 ```text
 Confluence 문서 작성 스킬을 사용해 이 메모로 붙여넣기용 HTML과 Markdown을 만들어줘.
@@ -37,7 +37,7 @@ Confluence 문서 작성 스킬을 사용해 이 메모로 붙여넣기용 HTML�
 
 ## Claude 웹/앱 및 수동 설치
 
-[최신 Release](https://github.com/leeyounho/confluence-skills/releases/latest)에서 `confluence-doc-writer.zip`을 받습니다.
+[최신 Release](https://github.com/leeyounho/skills-confluence/releases/latest)에서 `confluence-doc-writer.zip`을 받습니다.
 
 - **Claude 웹/앱:** Skills 설정에서 ZIP을 업로드하고 활성화합니다.
 - **Claude Code 개인 스킬:** ZIP 안의 `confluence-doc-writer` 폴더를 `~/.claude/skills/`에 복사합니다. 호출은 `/confluence-doc-writer`입니다.
@@ -257,16 +257,16 @@ python -X utf8 <스킬폴더>/scripts/summarize_changes.py 수정전.md 수정�
 
 ## 업데이트
 
-**Claude Code:** `/plugin` → Marketplaces → Confluence Skills에서 **Enable auto-update**를 켜거나 아래 명령을 실행합니다.
+**Claude Code:** `/plugin` → Marketplaces → Skills Confluence에서 **Enable auto-update**를 켜거나 아래 명령을 실행합니다.
 
 ```text
-/plugin marketplace update confluence-skills
+/plugin marketplace update skills-confluence
 ```
 
 **Codex:** marketplace를 새로고침하고 앱에서 플러그인 업데이트 상태를 확인합니다. 필요하면 새 세션에서 확인합니다.
 
 ```text
-codex plugin marketplace upgrade confluence-skills
+codex plugin marketplace upgrade skills-confluence
 ```
 
 **Claude 웹/앱 및 수동 설치:** 최신 Release의 ZIP으로 교체합니다.

@@ -1,5 +1,5 @@
 {
   "template_root": "./.confluence-docs/templates",
-  "default_template": "operations.md",
+  "default_template": "issue-report.md",
   "template_aliases": {}
 }

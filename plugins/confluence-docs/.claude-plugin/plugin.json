@@ -1,6 +1,6 @@
 {
   "name": "confluence-docs",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "description": "비교 표와 시각화 구성안을 기본으로 제안하고, 대화로 정보를 채워 구체적인 Confluence 문서를 작성합니다.",
   "author": { "name": "leeyounho" },
   "repository": "https://github.com/leeyounho/confluence-skills",

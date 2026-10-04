@@ -58,6 +58,36 @@ class SelectionAndIntakeTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             templates.select('없는양식', self.root, {})
 
+    def test_issue_selection_and_removed_operations_local_override(self):
+        for name in ('이슈 보고', '장애 보고서', 'issue report', 'issue-report.md'):
+            with self.subTest(name=name):
+                self.assertEqual(templates.select(name, self.root, {})['id'], 'issue-report')
+        self.assertNotIn('operations', {entry['id'] for entry in self.catalog})
+        with self.assertRaises(ValueError):
+            templates.select('operations.md', self.root, {})
+        local = self.root / 'operations.md'
+        local.write_text('Company-specific operations template', encoding='utf-8')
+        self.assertEqual(Path(templates.select('operations.md', self.root, {})['path']), local)
+        issue_override = self.root / 'issue-report.md'
+        issue_override.write_text('Company-specific issue template', encoding='utf-8')
+        self.assertEqual(Path(templates.select('이슈 보고', self.root, {})['path']), issue_override)
+
+    def test_issue_readiness_allows_pending_cause_and_reopens_conflicts(self):
+        selected = templates.select('이슈 보고', self.root, {})
+        state = {'sections': {
+            '발생 개요': {'status': 'confirmed', 'content': '대상·환경·종료 현상·확인 시각·현재 상태와 확인 시점 확인'},
+        }}
+        self.assertFalse(templates.readiness(selected, state)['ready'])
+        state['sections'].update({
+            '영향 범위': {'status': 'agreed_pending', 'content': '사용자가 영향 범위 조사 중으로 작성 요청'},
+            '대응 경과': {'status': 'confirmed', 'content': '09:15 재기동, 업무 복구는 확인 중으로 제공'},
+            '원인 확인 및 근거': {'status': 'agreed_pending', 'content': '사용자가 원인 미확인으로 작성 요청, 제공된 OOM 로그 확인'},
+            'Action Item': {'status': 'agreed_none', 'content': '추가 작업 없음을 사용자 확인'},
+        })
+        self.assertTrue(templates.readiness(selected, state)['ready'])
+        state['sections']['대응 경과'] = {'status': 'unresolved', 'content': '복구 확인 결과가 이전 답변과 충돌'}
+        self.assertEqual(templates.readiness(selected, state)['blockers'], ['대응 경과'])
+
     def test_focused_meeting_selection_and_readiness(self):
         for name in ('주요 안건 회의록', '핵심 안건 회의록', '안건별 상세 회의록', 'meeting-focused.md'):
             with self.subTest(name=name):
@@ -94,7 +124,7 @@ class SelectionAndIntakeTests(unittest.TestCase):
         state = {'sections': {'추진내용': {'status': 'confirmed', 'content': 'A 시스템 배치 개선 완료, 변경 파일과 테스트 결과 제공'}}}
         first = templates.readiness(self.completion(), state)
         self.assertFalse(first['ready'])
-        self.assertNotIn('summary', first['blockers'])
+        self.assertNotIn('Executive Summary', first['blockers'])
         self.assertIn('효과', first['blockers'])
         state['sections'].update({
             '배경': {'status': 'confirmed', 'content': '기존 배치 대기시간 개선 목적'},

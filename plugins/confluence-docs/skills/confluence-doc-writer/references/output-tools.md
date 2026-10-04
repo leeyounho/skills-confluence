@@ -38,7 +38,7 @@ python -X utf8 <스킬폴더>/scripts/compare_documents.py <문서.body.html> <�
 기존 문서를 수정할 때 기본으로 별도 `<slug>.changes.md`를 제공한다. 새 문서 작성에는 빈 수정 내역 파일을 만들지 않는다.
 
 1. 수정 전에 읽은 원본을 작업 폴더의 `.confluence-docs/drafts/originals/` 아래 고유 파일명으로 보관한다. 이미 제공된 이전 버전이 있으면 그 파일을 사용한다. 원본과 저장 위치는 공개 저장소·배포물에 넣지 않는다.
-2. 요청 범위의 문서와 관련 summary를 수정하고 내용 대조를 마친다.
+2. 요청 범위의 문서와 관련 요약를 수정하고 내용 대조를 마친다.
 3. 같은 형식의 이전·이후 파일로 [수정 내역 도구](../scripts/summarize_changes.py)를 실행한다. 기본은 `.md`끼리 비교하며 본문 `.html`끼리도 가능하다.
 
 ```text
